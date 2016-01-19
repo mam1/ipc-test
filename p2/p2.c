@@ -81,6 +81,7 @@ int main(void){
 	int 			data_size;
 	void			*data;
 	int 			*ptr; 
+	int 			value, hvalue;
 
 	long page_size = sysconf (_SC_PAGESIZE);
 	data_size = 2 * (int)page_size;
@@ -93,13 +94,22 @@ int main(void){
 	printf("                file size %i\n",data_size);
 	printf("\nwasted memory %i\n\n", 2*(int)page_size - sizeof(com_block));
 
+	fd = ipc_open(fname);				// create/open ipc file
+	data = ipc_map(fd,data_size);		// map file to memory
+
+		
+
+	while(value){
+		if(hvalue != value){
+			printf(" <%i>\n",value);
+			hvalue = value;
+		}
+		com_block.force_update
+	}
 
 
 
 	fd = ipc_open(fname);				// create/open ipc file
-	// posix_fallocate(fd, 0, data_size);
-
-
 	data = ipc_map(fd,data_size);		// map file to memory
 	com_block.force_update = 626;
 	printf("before memcpy\n");
@@ -113,7 +123,6 @@ int main(void){
 	com_block.force_update = 777;
 	printf("  <%i>\n",com_block.force_update);
 	fd = ipc_open(fname);						// create/open ipc file
-	// posix_fallocate(fd, 0, data_size);
 	data = ipc_map(fd,(int)data_size);			// map file to memory
 	memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure
 	printf("structruure loaded\n");
