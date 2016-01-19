@@ -68,4 +68,8 @@
 // void term1(void);
 // void disp_sys(void);
 
+/* functions */
+int ipc_open(char *fname);
+void *ipc_map(int fd, int page_size);
+
 #endif
