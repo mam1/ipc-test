@@ -85,7 +85,7 @@ int main(void){
 
 	long page_size = sysconf (_SC_PAGESIZE);
 	data_size = 2 * (int)page_size;
-	printf("\n ***** ipc test ****\n\n");
+	printf("\n ***** ipc test  p2 ****\n\n");
 	printf("page size %i\n",(int)page_size);
 	printf("system control block size %i\n",sizeof(com_block));
 	printf("     system schedule size %i\n",sizeof(com_block.sch));
@@ -96,38 +96,19 @@ int main(void){
 
 	fd = ipc_open(fname);				// create/open ipc file
 	data = ipc_map(fd,data_size);		// map file to memory
-
-		
-
+	memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure		
+	value = com_block.force_update;
+	printf(" initial value %i\n",value);
+	hvalue = -1;
 	while(value){
 		if(hvalue != value){
 			printf(" <%i>\n",value);
 			hvalue = value;
 		}
-		com_block.force_update
+		memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure
+		value = com_block.force_update;
 	}
 
-
-
-	fd = ipc_open(fname);				// create/open ipc file
-	data = ipc_map(fd,data_size);		// map file to memory
-	com_block.force_update = 626;
-	printf("before memcpy\n");
-	printf("data <%0x>, comblock address <%0x>\n", (unsigned int)data, (unsigned int)&com_block);
-	memcpy(data,&com_block,sizeof(com_block));	// move local data into shared memory
-	printf("before close\n");
-	ipc_close(fd,data,data_size);
-	printf("data written\n");
-	sleep(2);
-
-	com_block.force_update = 777;
-	printf("  <%i>\n",com_block.force_update);
-	fd = ipc_open(fname);						// create/open ipc file
-	data = ipc_map(fd,(int)data_size);			// map file to memory
-	memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure
-	printf("structruure loaded\n");
-	printf("  <%i>\n",com_block.force_update);
-
-	printf("\n");
+	printf("\nnormal termination\n\n");
 	return 0;
 }

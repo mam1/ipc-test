@@ -84,7 +84,7 @@ int main(void){
 
   long page_size = sysconf (_SC_PAGESIZE);
   data_size = 2 * (int)page_size;
-  printf("\n ***** ipc test ****\n\n");
+  printf("\n ***** ipc test p1****\n\n");
   printf("page size %i\n",(int)page_size);
   printf("system control block size %i\n",sizeof(com_block));
   printf("     system schedule size %i\n",sizeof(com_block.sch));
@@ -101,6 +101,7 @@ int main(void){
     scanf("%i",&value);
     if(value == 0) loop = 0;
     com_block.force_update = value;
+    memcpy(data,&com_block,sizeof(com_block));  // move local data into shared memory
     printf("> ");
   }
   ipc_close(fd,data,data_size);
