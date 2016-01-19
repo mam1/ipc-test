@@ -16,10 +16,10 @@ typedef	struct {
 	struct{
 		int			temp;
 		int			humidity;
-		int			lup_sec;
-		int			lup_min;
-		int			lup_hour;
-		int			lup_wday;
+		int			lup_sec;		// last update
+		int			lup_min;		// last update
+		int			lup_hour;		// last update
+		int			lup_wday;		// last update
 	} s_dat[_NUMBER_OF_SENSORS];
 
 } IPC_DAT;

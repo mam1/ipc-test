@@ -20,6 +20,7 @@ int main(void){
 	void			*data;
 	int				pages;
 	IPC_DAT			com_block;
+	int 			value, hvalue;
 
 	printf("\n**** test_ipc ****\n\n");
 
@@ -30,12 +31,17 @@ int main(void){
 	else if(sizeof(com_block) % page_size != 0) pages += 1;
 	printf("pages = %i\n", pages);
 	filesize = pages * (int)page_size;
-
 	fd = ipc_open(fname);						// create/open ipc file
 	data = ipc_map(fd,filesize);				// map file to memory
 	memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure
 
-
+	while(1){	
+		if(com_block.force_update){
+			printf("channel mode %i, channel state %i\n",com_block.c_dat[2].c_mode, com_block.c_dat[2].c_state);
+			com_block.force_update = 0;
+			memcpy(data,&com_block,sizeof(com_block));  // move local data into shared memory
+		}
+	}
 
 	printf("normal termination\n\n");
 	return 0;

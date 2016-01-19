@@ -61,9 +61,9 @@ int main(void){
 	data = ipc_map(fd,data_size);		// map file to memory
 	memcpy(&com_block,data,sizeof(com_block));	// move shared memory data to local structure		
 	value = com_block.force_update;
-	printf(" initial value %i\n",value);
 	hvalue = -1;
 	while(value){
+		printf("chanel mode %i, channel state %i\n",com_block.s_dat[2].c_mode, com_block.s_dat[2].c_state);
 		if(hvalue != value){
 			printf(" <%i>\n",value);
 			hvalue = value;
