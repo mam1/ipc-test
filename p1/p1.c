@@ -10,8 +10,8 @@
 #include <string.h>
 #include <unistd.h>    //sleep
 #include <stdint.h>   //uint_8, uint_16, uint_32, etc.
-
 #include "p1.h"
+#include "ipc.h"
 
 
 /* ipc data - memory mapped */

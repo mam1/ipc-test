@@ -6,8 +6,11 @@
 #define _minor_version 			0
 #define _minor_revision 		0
 
+/* sensor parameteres */
+#define _NUMBER_OF_SENSORS		10
+
 /* channel parameters */
-#define _NUMBER_OF_CHANNELS 	8
+#define _NUMBER_OF_CHANNELS 	16
 #define _CHANNEL_NAME_SIZE		20
 
 /* schedule parameters */
@@ -15,9 +18,6 @@
 #define _MAX_SCHEDULE_RECS		10
 #define _SCHEDULE_SIZE			_MAX_SCHEDULE_RECS + 1
 // #define _SCHEDULE_BUFFER		128
-
-/* sensor parameters */
-#define _NUMBER_OF_SENSORS		10
 
 #define	_BYTES_PER_INT 				4
 #define _BYTES_PER_SCHEDULE 	_SCHEDULE_SIZE * _BYTES_PER_INT
